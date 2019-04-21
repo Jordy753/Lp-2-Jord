@@ -19,7 +19,7 @@ class my_string{
 
 
     my_string& operator =(const my_string& str);
-    my_string& operator +(const my_string& str);	//REVISAR
+    friend my_string operator +(my_string& a,my_string& b);	//REVISAR
     
     bool operator ==(const my_string& a); //va &? revisar porque friend creo porq era aparte de la clase "antes" 
     bool operator <(const my_string& a); //Por enteros o orden lexicográfico (convertir en minusculas)
@@ -64,25 +64,22 @@ class my_string{
 		return str[k];  //ver
 	}
 
-	my_string& my_string::operator +(const my_string& a){
-		char* b=new char[length];
-	 	for(int i=0;i<length;i++){
-	 		b[i]=str[i];		
+	my_string operator +(my_string& a,my_string& b){
+		int m=a.length+b.length;
+		int i=0,j=0;
+		my_string c;
+		c.str=new char(m);
+		c.length=m;
+		while(j!=m){
+			if(j<a.length){
+				c.str[j]=a[j];
+			}
+			else{
+				c.str[j]=b[i++];
+			}
+		j++;
 		}
-		length=(length+a.leng());		 
-		delete[] str; 
-		str=new char[length];
-		
-	 	for(int i=0;i<a.leng();i++){
-		 	str[i]=a.str[i]; 
-		}
-		int k=0;
-		for(int i=a.leng();i<length;i++){
-			str[i]=b[k];
-			k++;
-		}
-		
-		delete[] b;
+		return c;
 	 }		
 
 	my_string& my_string::operator=(const my_string& a){
@@ -169,8 +166,8 @@ int main(){
 	cout<<b<<"\n";
 	if(a<b) cout<<a<<" menor a "<<b<<"\n";
 	else cout<<a<<" mayor a "<<b<<"\n";
-	a+b;
-	cout<<a<<"\n";
+	my_string c=a+b;
+	cout<<c<<"\n";
 
 
   return 0;
