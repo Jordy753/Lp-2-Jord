@@ -52,6 +52,11 @@ Matrix<T>::Matrix(size_t _rows,size_t _columns){
 	}
 	columns=_columns;
 	rows=_rows;
+	for(int i=0;i<rows;i++){
+		for(int j=0;j<columns;j++){
+			A[i][j]=0;
+		}
+	}
 }
 
 template<class T>
@@ -105,8 +110,15 @@ template<class T>
 Matrix<T> Matrix<T>::operator *(const Matrix<T>& a){
 	Matrix<T> d(rows,a.columns);
 	if(columns==a.rows){
-		
-	}
+		for(int i=0;i<rows;i++){
+			for(int k=0;k<a.columns;k++){
+				for(int j=0;j<columns;j++){
+					d.A[i][k]=A[i][j]*a.A[j][k]+d.A[i][k];
+				}
+			}	
+		}
+		return d;
+	}	
 	else{
 		throw;
 	}
@@ -123,8 +135,9 @@ int main(){
 	b=a;
 	Matrix<int> c=a+b;
 	cout<<c;
-	cout<<c(0,1);
-	
+	cout<<c(0,1)<<"\n";
+	a=a*b;
+	cout<<a;
 	
 	return 0;
 }

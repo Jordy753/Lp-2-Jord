@@ -42,7 +42,6 @@ class Matrix{
     	Matrix<T> operator *(const Matrix<T>& a);
     	
 };
-
 #include "my_matrix2.inl"
 
 #endif

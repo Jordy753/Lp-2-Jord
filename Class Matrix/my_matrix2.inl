@@ -10,10 +10,16 @@ Matrix<T>::Matrix(size_t _rows,size_t _columns){
 	}
 	columns=_columns;
 	rows=_rows;
+	for(int i=0;i<rows;i++){
+		for(int j=0;j<columns;j++){
+			A[i][j]=0;
+		}
+	}
 }
 
 template<class T>
 Matrix<T>::Matrix(const Matrix& a){
+	
 	rows=a.n_rows();
 	columns=a.n_columns();
 	A=new T*[rows];
@@ -33,6 +39,7 @@ Matrix<T>::~Matrix(){
 		delete[] A[i];
 	delete[] A;
 }
+
 
 template<class T>
 T& Matrix<T>::operator()(size_t i,size_t j){	
@@ -58,13 +65,20 @@ Matrix<T> Matrix<T>::operator +(const Matrix<T>& a){
 }
 
 template<class T>
-Matrix<T> Matrix<T>::operator *(const Matrix<T>& a){ //falta
+Matrix<T> Matrix<T>::operator *(const Matrix<T>& a){
 	Matrix<T> d(rows,a.columns);
-	if(columns==a.rows){	
-	}
+	if(columns==a.rows){
+		for(int i=0;i<rows;i++){
+			for(int k=0;k<a.columns;k++){
+				for(int j=0;j<columns;j++){
+					d.A[i][k]=A[i][j]*a.A[j][k]+d.A[i][k];
+				}
+			}	
+		}
+		return d;
+	}	
 	else{
 		throw;
 	}
-	throw;
 }
 

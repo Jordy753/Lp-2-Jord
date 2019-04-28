@@ -10,7 +10,9 @@ int main(){
 	b=a;
 	Matrix<int> c=a+b;
 	cout<<c;
-	cout<<c(0,1);
+	cout<<c(0,1)<<"\n";
+	a=a*b;
+	cout<<a;
 	
 	return 0;
 }
