@@ -112,7 +112,6 @@ Matrix<T> Matrix<T>::operator *(const Matrix<T>& a){
 				}			  
 			}	
 		}
-		//Hacer tambien los detalles minuciosos de if y subir al repo hacer el >> el extra
 		return d;
 	}	
 	else{

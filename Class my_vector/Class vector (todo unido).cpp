@@ -9,8 +9,7 @@ class my_vector{
 	public:	
 		my_vector(int _size=0);	//constructor
 		my_vector(my_vector& a);	//constructor copia
-		my_vector(const T* a);		//constructor copia *T
-		~my_vector();	//
+		~my_vector();	
 		
 		int size1()const{return size;}
 		void push_back(const T a);
