@@ -3,18 +3,20 @@
 
 #include<iostream>
 #include<QMainWindow>
-#include<mainwindow.h>
+#include<QColor>
+#include<QPainter>
+#include<QPixmap>
+#include<QPen>
 
 using namespace std;
 
-class figure:public MainWindow
-{
+class figure{
     private:
 
     public:
-       // virtual ~figure();
+    virtual ~figure(){}
 
-        virtual void draw(QPainter * painter)=0;
+    virtual void draw(QPainter * &painters)=0;
 
 };
 

@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <vector>
+#include <figures.h>
+#include <circle.h>
 #include <QColor>
 #include <QPainter>
 #include <QPixmap>
@@ -24,9 +27,9 @@ private slots:
 
     void on_b_draw_triangle_clicked();
 
-    //void on_b_draw_square_clicked();
-
     void on_b_draw_rect_clicked();
+
+    void on_b_draw_clicked();
 
 private:
 	void draw_circle(QPainter * painter);
@@ -40,6 +43,8 @@ private:
 	QPixmap * pixmap;
 	QPen * pen;
     QPixmap *as;
+    int k;
+    vector<figure*> m;
 };
 
 #endif // MAINWINDOW_H

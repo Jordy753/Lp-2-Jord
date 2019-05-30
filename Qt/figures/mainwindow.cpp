@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "figures.h"
 #include "circle.h"
+#include "triangle.h"
+#include "rect.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
@@ -19,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     painter = new QPainter(pixmap);
     painter->setPen(*pen);
+    k=0;
 }
 
 MainWindow::~MainWindow()
@@ -30,25 +33,6 @@ MainWindow::~MainWindow()
     delete as;
 }
 
-void MainWindow::draw_circle(QPainter * painter)
-{
-	int r = rand() % 100 + 1;
-    painter->setBrush(Qt::blue);
-    painter->drawEllipse(300,100 , r, r);
-    //int r = rand()%100+1;
-}
-
-void MainWindow::draw_triangle(QPainter * painter){
-    int a = rand()%pixmap->width();
-    int b = rand()%pixmap->height();
-    int c = rand()%100+1;int d = rand()%100+1;
-    int e = rand()%100+1;int f = rand()%100+1;
-    //painter->setBrush(Qt::blue);
-    painter->drawLine(a,b,c,d);
-    painter->drawLine(a,b,e,f);
-    painter->drawLine(e,f,c,d);
-}
-
 void MainWindow::draw_rect(QPainter *painter){
     int r = rand() % 100 + 1;
     painter->setBrush(Qt::blue);
@@ -57,26 +41,59 @@ void MainWindow::draw_rect(QPainter *painter){
 
 void MainWindow::on_b_draw_circle_clicked()
 {
-    pixmap->fill(Qt :: black); //clear
-    draw_circle(painter);
+    pixmap->fill(Qt :: black);
+    int r = rand() % 100 + 1;
+    m.push_back(new circle(rand()%pixmap->width(),rand()%pixmap->height(),r,r));
+    m[k]->draw(painter);
 	ui->label_draw_area->setPixmap(*pixmap);
+    k++;
 }
 
 void MainWindow::on_b_draw_triangle_clicked()
 {
-    pixmap->fill(Qt :: black); //clear
-
-    draw_triangle(painter);
-
+    pixmap->fill(Qt :: black);
+    int a = rand()%pixmap->width();
+    int b = rand()%pixmap->height();
+    int c = rand()%100+1;int d = rand()%100+1;
+    int e = rand()%100+1;int f = rand()%100+1;
+    m.push_back(new triangle(a,b,c,d,e,f));
+    m[k]->draw(painter);
     ui->label_draw_area->setPixmap(*pixmap);
+    k++;
 }
 
 
 void MainWindow::on_b_draw_rect_clicked()
 {
-    pixmap->fill(Qt :: black); //clear
-
-    draw_rect(painter);
-
+    pixmap->fill(Qt :: black);
+    int r= rand() % 100 + 1;
+    m.push_back(new square(rand()%pixmap->width(),rand()%pixmap->height(),r,r));
+    m[k]->draw(painter);
     ui->label_draw_area->setPixmap(*pixmap);
+    k++;
+}
+
+void MainWindow::on_b_draw_clicked()
+{
+    pixmap->fill(Qt :: black);
+    for(int i=0;i<k;i++){
+        m[i]->draw(painter);
+    }
+    ui->label_draw_area->setPixmap(*pixmap);
+}
+
+void circle::draw(QPainter * &painters){
+    painters->setBrush(Qt::blue);
+    painters->drawEllipse(x,y,h,w);
+}
+
+void triangle::draw(QPainter *&painters){
+    painters->drawLine(a,b,c,d);
+    painters->drawLine(a,b,e,f);
+    painters->drawLine(e,f,c,d);
+}
+
+void square::draw(QPainter *&painters){
+    painters->setBrush(Qt::blue);
+    painters->drawRect(x,y,h,w);
 }
