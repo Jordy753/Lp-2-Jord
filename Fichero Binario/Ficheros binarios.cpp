@@ -7,7 +7,7 @@ using namespace std;
 
 struct A{
 	int y;
-	char str[3];
+	char str[100];
 	
 	A(int _x=0){
 		y=_x;
@@ -43,10 +43,10 @@ void load(vector<A>& va){
 */
 	A b;
 	ifstream f("prueba3.dat", ios::binary);
-	f.read((char*) &b, sizeof(b));
+	f.read((char*) &b, sizeof(A));
 	while(!f.eof()){
 		va.push_back(b);
-		f.read((char*) &b, sizeof(b));
+		f.read((char*) &b, sizeof(A));
 	}	
 	f.close();	
 
@@ -57,7 +57,7 @@ void save(vector<A>& va){
 	ofstream m("prueba3.dat", ios::binary);	
 	
 	for(int i=0;i<va.size();i++){
-		m.write((char *) &va[i], sizeof(va[i]));
+		m.write((char *) &va[i], sizeof(A));
 	}	
 	m.close();
 }
